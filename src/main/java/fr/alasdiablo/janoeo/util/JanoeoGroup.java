@@ -2,7 +2,7 @@ package fr.alasdiablo.janoeo.util;
 
 import fr.alasdiablo.diolib.gui.GroundItemGroup;
 import fr.alasdiablo.janoeo.init.IngotsItems;
-import fr.alasdiablo.janoeo.init.NetherOresBlocks;
+import fr.alasdiablo.janoeo.init.ores.Stone;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
@@ -17,7 +17,7 @@ public class JanoeoGroup {
     public static final ItemGroup ORE_BLOCKS = new GroundItemGroup("janoeo.ore.block") {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(NetherOresBlocks.COAL_NETHER_ORE);
+            return new ItemStack(Stone.ORES.get("COPPER_ORE").getBlock());
         }
     };
 

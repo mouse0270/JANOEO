@@ -1,6 +1,9 @@
 package fr.alasdiablo.janoeo;
 
 import fr.alasdiablo.janoeo.config.*;
+import fr.alasdiablo.janoeo.config.ores.StoneConfig;
+import fr.alasdiablo.janoeo.init.ores.Stone;
+import fr.alasdiablo.janoeo.init.ores.StoneDense;
 import fr.alasdiablo.janoeo.util.Registries;
 import fr.alasdiablo.janoeo.world.OreGenUtils;
 import fr.alasdiablo.janoeo.world.gen.feature.OresFeatures;
@@ -49,15 +52,8 @@ public class Janoeo {
      * @param e RegistryEvent (not use in this case)
      */
     private void initFeatures(RegistryEvent.NewRegistry e) {
-        OresFeatures.initOverworld();
-        OresFeatures.initNether();
-        OresFeatures.initGravel();
-        OresFeatures.initOceanGravel();
-        OresFeatures.initNetherGravel();
-        OresFeatures.initNetherBasalt();
-        OresFeatures.initTheEnd();
-        OresFeatures.initDenseOre();
-        OresFeatures.initNetherDenseOre();
+        OresFeatures.initOre(Stone.ORES, "OVERWORLD.STONE");
+        OresFeatures.initOre(StoneDense.ORES, "OVERWORLD.STONE.DENSE");
     }
 
     /**
@@ -76,12 +72,10 @@ public class Janoeo {
         this.createConfigDir(Paths.get(configPath.toAbsolutePath().toString(), "janoeo"));
         this.createConfigDir(Paths.get(configPath.toAbsolutePath().toString(), "janoeo/ore"));
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GlobalConfig.CONFIG_SPEC, "janoeo/janoeo.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, NetherConfig.CONFIG_SPEC, "janoeo/ore/nether.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, OverworldConfig.CONFIG_SPEC, "janoeo/ore/overworld.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EndConfig.CONFIG_SPEC, "janoeo/ore/end.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GravelConfig.CONFIG_SPEC, "janoeo/ore/gravel.toml");
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, StoneConfig.CONFIG_SPEC, "janoeo/ore/stone.toml");
+
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FrequencyConfig.CONFIG_SPEC, "janoeo/ore/frequency.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BasaltConfig.CONFIG_SPEC, "janoeo/ore/basalt.toml");
     }
 
     private void createConfigDir(Path configPath) {

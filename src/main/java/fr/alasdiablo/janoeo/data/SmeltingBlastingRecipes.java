@@ -1,8 +1,8 @@
 package fr.alasdiablo.janoeo.data;
 
 import fr.alasdiablo.diolib.util.RegistryHelper;
-import fr.alasdiablo.janoeo.Janoeo;
 import fr.alasdiablo.janoeo.init.*;
+import fr.alasdiablo.janoeo.init.ores.Stone;
 import fr.alasdiablo.janoeo.util.Registries;
 import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
@@ -22,13 +22,28 @@ public class SmeltingBlastingRecipes extends RecipeProvider {
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+
+
+        /*this.registerSmeltingBlasting(Stone.COPPER_ORE, AllItems.Ingots.COPPER,"has_copper_ore", consumer);
+        this.registerSmeltingBlasting(Stone.TIN_ORE, AllItems.Ingots.TIN, "has_tin_ore", consumer);
+        this.registerSmeltingBlasting(Stone.ALUMINIUM_ORE, AllItems.Ingots.ALUMINIUM, "has_aluminium_ore", consumer);
+        this.registerSmeltingBlasting(Stone.LEAD_ORE, AllItems.Ingots.LEAD, "has_lead_ore", consumer);
+        this.registerSmeltingBlasting(Stone.SILVER_ORE, AllItems.Ingots.SILVER, "has_silver_ore", consumer);
+        this.registerSmeltingBlasting(Stone.URANIUM_ORE, AllItems.Ingots.URANIUM, "has_uranium_ore", consumer);
+        this.registerSmeltingBlasting(Stone.OSMIUM_ORE, AllItems.Ingots.OSMIUM, "has_osmium_ore", consumer);
+        this.registerSmeltingBlasting(Stone.RUBY_ORE, AllItems.Gems.RUBY, "has_ruby_ore", consumer);
+        this.registerSmeltingBlasting(Stone.SAPPHIRE_ORE, AllItems.Gems.SAPPHIRE, "has_sapphire_ore", consumer);
+        this.registerSmeltingBlasting(Stone.AMETHYST_ORE, AllItems.Gems.AMETHYST, "has_amethyst_ore", consumer);
+        this.registerSmeltingBlasting(Stone.ZINC_ORE, AllItems.Ingots.ZINC, "has_zinc_ore", consumer);*/
+
         this.registerSmeltingBlasting(DustsItems.IRON_DUST, Items.IRON_INGOT, "has_iron_dust", consumer);
         this.registerSmeltingBlasting(DustsItems.GOLD_DUST, Items.GOLD_INGOT, "has_gold_dust", consumer);
         this.registerSmeltingBlasting(DustsItems.DIAMOND_DUST, Items.DIAMOND, "has_diamond_dust", consumer);
         this.registerSmeltingBlasting(DustsItems.COAL_DUST, Items.COAL, "has_coal_dust", consumer);
         this.registerSmeltingBlasting(DustsItems.LAPIS_DUST, Items.LAPIS_LAZULI, "has_lapis_dust", consumer);
         this.registerSmeltingBlasting(DustsItems.EMERALD_DUST, Items.EMERALD, "has_emerald_dust", consumer);
-        this.registerSmeltingBlasting(GravelsOresBlocks.IRON_GRAVEL_ORE, Items.IRON_INGOT, "has_gravel_iron_ore", consumer);
+
+        /*this.registerSmeltingBlasting(GravelsOresBlocks.IRON_GRAVEL_ORE, Items.IRON_INGOT, "has_gravel_iron_ore", consumer);
         this.registerSmeltingBlasting(GravelsOresBlocks.GOLD_GRAVEL_ORE, Items.GOLD_INGOT, "has_gravel_gold_ore", consumer);
         this.registerSmeltingBlasting(GravelsOresBlocks.DIAMOND_GRAVEL_ORE, Items.DIAMOND, "has_gravel_diamond_ore", consumer);
         this.registerSmeltingBlasting(GravelsOresBlocks.COAL_GRAVEL_ORE, Items.COAL, "has_gravel_coal_ore", consumer);
@@ -41,17 +56,6 @@ public class SmeltingBlastingRecipes extends RecipeProvider {
         this.registerSmeltingBlasting(EndOresBlocks.IRON_END_ORE, Items.IRON_INGOT, "has_end_iron_ore", consumer);
         this.registerSmeltingBlasting(EndOresBlocks.LAPIS_END_ORE, Items.LAPIS_LAZULI, "has_end_lapis_ore", consumer);
         this.registerSmeltingBlasting(EndOresBlocks.REDSTONE_END_ORE, Items.REDSTONE, "has_end_redstone_ore", consumer);
-        this.registerSmeltingBlasting(OverworldOresBlocks.COPPER_ORE, AllItems.Ingots.COPPER,"has_copper_ore", consumer);
-        this.registerSmeltingBlasting(OverworldOresBlocks.TIN_ORE, AllItems.Ingots.TIN, "has_tin_ore", consumer);
-        this.registerSmeltingBlasting(OverworldOresBlocks.ALUMINIUM_ORE, AllItems.Ingots.ALUMINIUM, "has_aluminium_ore", consumer);
-        this.registerSmeltingBlasting(OverworldOresBlocks.LEAD_ORE, AllItems.Ingots.LEAD, "has_lead_ore", consumer);
-        this.registerSmeltingBlasting(OverworldOresBlocks.SILVER_ORE, AllItems.Ingots.SILVER, "has_silver_ore", consumer);
-        this.registerSmeltingBlasting(OverworldOresBlocks.URANIUM_ORE, AllItems.Ingots.URANIUM, "has_uranium_ore", consumer);
-        this.registerSmeltingBlasting(OverworldOresBlocks.OSMIUM_ORE, AllItems.Ingots.OSMIUM, "has_osmium_ore", consumer);
-        this.registerSmeltingBlasting(OverworldOresBlocks.RUBY_ORE, AllItems.Gems.RUBY, "has_ruby_ore", consumer);
-        this.registerSmeltingBlasting(OverworldOresBlocks.SAPPHIRE_ORE, AllItems.Gems.SAPPHIRE, "has_sapphire_ore", consumer);
-        this.registerSmeltingBlasting(OverworldOresBlocks.AMETHYST_ORE, AllItems.Gems.AMETHYST, "has_amethyst_ore", consumer);
-        this.registerSmeltingBlasting(OverworldOresBlocks.ZINC_ORE, AllItems.Ingots.ZINC, "has_zinc_ore", consumer);
         this.registerSmeltingBlasting(NetherOresBlocks.COAL_NETHER_ORE, Items.COAL, "has_nether_coal_ore", consumer);
         this.registerSmeltingBlasting(NetherOresBlocks.DIAMOND_NETHER_ORE, Items.DIAMOND, "has_nether_diamond_ore", consumer);
         this.registerSmeltingBlasting(NetherOresBlocks.EMERALD_NETHER_ORE, Items.EMERALD, "has_nether_emerald_ore", consumer);
@@ -74,7 +78,7 @@ public class SmeltingBlastingRecipes extends RecipeProvider {
         this.registerSmeltingBlasting(BasaltOresBlocks.EMERALD_BASALT_ORE, Items.EMERALD, "has_basalt_emerald_ore", consumer);
         this.registerSmeltingBlasting(BasaltOresBlocks.GOLD_BASALT_ORE, Items.GOLD_INGOT, "has_basalt_gold_ore", consumer);
         this.registerSmeltingBlasting(BasaltOresBlocks.IRON_BASALT_ORE, Items.IRON_INGOT, "has_basalt_iron_ore", consumer);
-        this.registerSmeltingBlasting(BasaltOresBlocks.LAPIS_BASALT_ORE, Items.LAPIS_LAZULI, "has_basalt_lapis_ore", consumer);
+        this.registerSmeltingBlasting(BasaltOresBlocks.LAPIS_BASALT_ORE, Items.LAPIS_LAZULI, "has_basalt_lapis_ore", consumer);*/
     }
 
     private void registerSmeltingBlasting(IItemProvider ingredientIn, IItemProvider resultIn, String criterion, Consumer<IFinishedRecipe> consumer) {

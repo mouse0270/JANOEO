@@ -1,6 +1,6 @@
 package fr.alasdiablo.janoeo.world;
 
-import fr.alasdiablo.diolib.world.IWorldGenerator;
+import fr.alasdiablo.janoeo.world.util.IWorldGenerator;
 import fr.alasdiablo.janoeo.world.gen.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -10,34 +10,8 @@ import net.minecraftforge.registries.ForgeRegistries;
  */
 public class OreGenUtils {
 
-    /**
-     * Instance of the Overworld ore generator
-     */
-    private static final IWorldGenerator OVERWORLD_GENERATOR = new OverworldOreGenerator();
-    /**
-     * Instance of the Nether ore generator
-     */
-    private static final IWorldGenerator NETHER_GENERATOR = new NetherOreGenerator();
-    /**
-     * Instance of the The End ore generator
-     */
-    private static final IWorldGenerator END_GENERATOR = new EndOreGenerator();
-    /**
-     * Instance of the Overworld Gravel ore generator
-     */
-    private static final IWorldGenerator OVERWORLD_GRAVEL_GENERATOR = new GravelOreGenerator.Overworld();
-    /**
-     * Instance of the Ocean Gravel ore generator
-     */
-    private static final IWorldGenerator OCEAN_GRAVEL_GENERATOR = new GravelOreGenerator.Ocean();
-    /**
-     * Instance of the Nether Gravel ore generator
-     */
-    private static final IWorldGenerator NETHER_GRAVEL_GENERATOR = new GravelOreGenerator.Nether();
-    /**
-     * Instance of the Basalt ore generator
-     */
-    private static final IWorldGenerator BASALT_GENERATOR = new BasaltOreGenerator();
+    // Instance of StoneOreGenerator
+    private static final IWorldGenerator STONE_ORE_GENERATOR = new StoneOreGenerator();
 
     /**
      * Initialized the ore generation
@@ -46,19 +20,17 @@ public class OreGenUtils {
         for (Biome biome : ForgeRegistries.BIOMES) {
             switch (biome.getCategory()) {
                 case NETHER:
-                    NETHER_GRAVEL_GENERATOR.startWorldGeneration(biome);
-                    NETHER_GENERATOR.startWorldGeneration(biome);
-                    BASALT_GENERATOR.startWorldGeneration(biome);
+                    //NETHER_GENERATOR.startWorldGeneration(biome, "");
+                    //BASALT_GENERATOR.startWorldGeneration(biome, "");
                     break;
                 case THEEND:
-                    END_GENERATOR.startWorldGeneration(biome);
+                    //END_GENERATOR.startWorldGeneration(biome, "");
                     break;
                 case OCEAN:
-                    OCEAN_GRAVEL_GENERATOR.startWorldGeneration(biome);
                     break;
                 default:
-                    OVERWORLD_GENERATOR.startWorldGeneration(biome);
-                    OVERWORLD_GRAVEL_GENERATOR.startWorldGeneration(biome);
+                    STONE_ORE_GENERATOR.startWorldGeneration(biome, "OVERWORLD.STONE", "");
+                    //GRAVEL_ORE_GENEATOR.startWorldGeneration(biome, "OVERWORLD.GRAVEL", "");
                     break;
             }
         }

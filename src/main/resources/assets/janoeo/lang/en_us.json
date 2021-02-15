@@ -1,4 +1,12 @@
 {
+  "block.janoeo.coal_ore_stone":          "Coal Ore (Stone)",
+  "block.janoeo.iron_ore_stone":          "Iron Ore (Stone)",
+  "block.janoeo.gold_ore_stone":          "Gold Ore (Stone)",
+  "block.janoeo.diamond_ore_stone":       "Diamond Ore (Stone)",
+  "block.janoeo.emerald_ore_stone":       "Emerald Ore (Stone)",
+  "block.janoeo.lapis_ore_stone":         "Lapis lazuli Ore (Stone)",
+  "block.janoeo.redstone_ore_stone":      "Redstone Ore (Stone)",
+
   "block.janoeo.coal_nether_ore": "Nether Coal Ore",
   "block.janoeo.diamond_nether_ore": "Nether Diamond Ore",
   "block.janoeo.emerald_nether_ore": "Nether Emerald Ore",

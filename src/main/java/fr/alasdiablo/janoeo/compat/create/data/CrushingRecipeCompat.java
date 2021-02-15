@@ -46,13 +46,13 @@ public class CrushingRecipeCompat extends ProcessingRecipeGen {
     }
 
     private void ore() {
-        this.provider.coalOre(() -> NetherOresBlocks.COAL_NETHER_ORE, Blocks.NETHERRACK);
+        /*this.provider.coalOre(() -> NetherOresBlocks.COAL_NETHER_ORE, Blocks.NETHERRACK);
         this.provider.coalOre(() -> EndOresBlocks.COAL_END_ORE, Blocks.END_STONE);
         this.provider.coalOre(() -> BasaltOresBlocks.COAL_BASALT_ORE, Blocks.BASALT);
 
         this.provider.redstoneOre(() -> NetherOresBlocks.REDSTONE_NETHER_ORE, Blocks.NETHERRACK);
         this.provider.redstoneOre(() -> EndOresBlocks.REDSTONE_END_ORE, Blocks.END_STONE);
-        this.provider.redstoneOre(() -> BasaltOresBlocks.REDSTONE_BASALT_ORE, Blocks.BASALT);
+        this.provider.redstoneOre(() -> BasaltOresBlocks.REDSTONE_BASALT_ORE, Blocks.BASALT);*/
     }
 
     private void dust() {

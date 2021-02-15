@@ -2,6 +2,10 @@ package fr.alasdiablo.janoeo.data;
 
 import fr.alasdiablo.diolib.data.DioBlockLootTables;
 import fr.alasdiablo.janoeo.init.*;
+import fr.alasdiablo.janoeo.init.ores.Stone;
+import fr.alasdiablo.janoeo.init.ores.StoneDense;
+import fr.alasdiablo.janoeo.util.LootTableProvider;
+import fr.alasdiablo.janoeo.util.OreBlockProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantments;
@@ -12,6 +16,8 @@ import net.minecraft.loot.RandomValueRange;
 import net.minecraft.loot.functions.ApplyBonus;
 import net.minecraft.loot.functions.SetCount;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 public class ModBlockLootTable extends DioBlockLootTables {
@@ -32,21 +38,79 @@ public class ModBlockLootTable extends DioBlockLootTables {
         private static final Function<Block, LootTable.Builder> DENSE_EMERALD_LOOT_PROVIDER = (emerald) -> droppingWithSilkTouch(emerald, withExplosionDecay(emerald, ItemLootEntry.builder(Items.EMERALD).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 3.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
         private static final Function<Block, LootTable.Builder> DENSE_IRON_LOOT_PROVIDER = (iron) -> droppingWithSilkTouch(iron, withExplosionDecay(iron, ItemLootEntry.builder(Blocks.IRON_ORE).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 3.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
         private static final Function<Block, LootTable.Builder> DENSE_GOLD_LOOT_PROVIDER = (gold) -> droppingWithSilkTouch(gold, withExplosionDecay(gold, ItemLootEntry.builder(Blocks.GOLD_ORE).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 3.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
-        private static final Function<Block, LootTable.Builder> DENSE_COPPER_LOOT_PROVIDER = (copper) -> droppingWithSilkTouch(copper, withExplosionDecay(copper, ItemLootEntry.builder(OverworldOresBlocks.COPPER_ORE).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 3.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
-        private static final Function<Block, LootTable.Builder> DENSE_TIN_LOOT_PROVIDER = (tin) -> droppingWithSilkTouch(tin, withExplosionDecay(tin, ItemLootEntry.builder(OverworldOresBlocks.TIN_ORE).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 3.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
+        //private static final Function<Block, LootTable.Builder> DENSE_COPPER_LOOT_PROVIDER = (copper) -> droppingWithSilkTouch(copper, withExplosionDecay(copper, ItemLootEntry.builder(Stone.COPPER_ORE).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 3.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
+        //private static final Function<Block, LootTable.Builder> DENSE_TIN_LOOT_PROVIDER = (tin) -> droppingWithSilkTouch(tin, withExplosionDecay(tin, ItemLootEntry.builder(Stone.TIN_ORE).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 3.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
         private static final Function<Block, LootTable.Builder> DENSE_QUARTZ_LOOT_PROVIDER = (quartz) -> droppingWithSilkTouch(quartz, withExplosionDecay(quartz, ItemLootEntry.builder(Items.QUARTZ).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 3.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
-        private static final Function<Block, LootTable.Builder> DENSE_NETHER_IRON_LOOT_PROVIDER = (iron) -> droppingWithSilkTouch(iron, withExplosionDecay(iron, ItemLootEntry.builder(NetherOresBlocks.IRON_NETHER_ORE).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 3.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
-        private static final Function<Block, LootTable.Builder> DENSE_NETHER_GOLD_LOOT_PROVIDER = (gold) -> droppingWithSilkTouch(gold, withExplosionDecay(gold, ItemLootEntry.builder(NetherOresBlocks.GOLD_NETHER_ORE).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 3.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
+        //private static final Function<Block, LootTable.Builder> DENSE_NETHER_IRON_LOOT_PROVIDER = (iron) -> droppingWithSilkTouch(iron, withExplosionDecay(iron, ItemLootEntry.builder(NetherOresBlocks.IRON_NETHER_ORE).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 3.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
+        //private static final Function<Block, LootTable.Builder> DENSE_NETHER_GOLD_LOOT_PROVIDER = (gold) -> droppingWithSilkTouch(gold, withExplosionDecay(gold, ItemLootEntry.builder(NetherOresBlocks.GOLD_NETHER_ORE).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 3.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
+    }
+
+    private static <T> T getValueOrDefault(T value, T defaultValue) {
+        return value == null ? defaultValue : value;
+    }
+
+    private void buildLootTable(String oreName, OreBlockProperties oreBlockProperties) {
+        // GET ORE BLOCK
+        Block oreBlock = oreBlockProperties.getBlock();
+        // GET ORE LOOT TABLE OPTIONS
+        LootTableProvider oreLootTable = oreBlockProperties.getLootTableProvider();
+
+        if (oreLootTable == null) {
+            this.registerDropSelfLootTable(oreBlock);
+        }else{
+            this.registerLootTable(oreBlock, (item) -> droppingWithSilkTouch(
+                    item, withExplosionDecay(
+                            item, ItemLootEntry.builder(getValueOrDefault(oreLootTable.getItem(), oreLootTable.getBlock())).acceptFunction(
+                                    SetCount.builder(RandomValueRange.of(oreLootTable.getMinDropRate(), oreLootTable.getMaxDropRate()))
+                            ).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))
+                    )
+            ));
+        }
     }
 
     @Override
     protected void addTables() {
-        this.registerDropSelfLootTable(BasaltOresBlocks.GOLD_BASALT_ORE);
+        // ----------------------------------------------------------------------------------------------
+        // --------------------------------------- OVERWORLD.STONE --------------------------------------
+        for (Map.Entry<String, OreBlockProperties> ORE : Stone.ORES.entrySet()) {
+            buildLootTable(ORE.getKey(), ORE.getValue());
+        }
+
+        // ------------------------------------ OVERWORLD.STONE.DENSE -----------------------------------
+        for (Map.Entry<String, OreBlockProperties> ORE : StoneDense.ORES.entrySet()) {
+            buildLootTable(ORE.getKey(), ORE.getValue());
+        }
+
+        //this.registerDropSelfLootTable(Stone.ALUMINIUM_ORE);
+        //this.registerDropSelfLootTable(Stone.COPPER_ORE);
+        //this.registerDropSelfLootTable(Stone.LEAD_ORE);
+        //this.registerDropSelfLootTable(Stone.OSMIUM_ORE);
+        //this.registerDropSelfLootTable(Stone.SILVER_ORE);
+        //this.registerDropSelfLootTable(Stone.TIN_ORE);
+        //this.registerDropSelfLootTable(Stone.URANIUM_ORE);
+        //this.registerDropSelfLootTable(Stone.ZINC_ORE);
+
+        //this.registerLootTable(Stone.AMETHYST_ORE, (amethyst) -> droppingItemWithFortune(amethyst, GemsItems.AMETHYST));
+        //this.registerLootTable(Stone.RUBY_ORE, Provider.RUBY_LOOT_PROVIDER);
+        //this.registerLootTable(Stone.SAPPHIRE_ORE, Provider.SAPPHIRE_LOOT_PROVIDER);
+
+        //this.registerLootTable(StoneDense.DENSE_COAL_ORE, Provider.DENSE_COAL_LOOT_PROVIDER);
+        //this.registerLootTable(StoneDense.DENSE_COPPER_ORE, Provider.DENSE_COPPER_LOOT_PROVIDER);
+        //this.registerLootTable(StoneDense.DENSE_DIAMOND_ORE, Provider.DENSE_DIAMOND_LOOT_PROVIDER);
+        //this.registerLootTable(StoneDense.DENSE_EMERALD_ORE, Provider.DENSE_EMERALD_LOOT_PROVIDER);
+        //this.registerLootTable(StoneDense.DENSE_GOLD_ORE, Provider.DENSE_GOLD_LOOT_PROVIDER);
+        //this.registerLootTable(StoneDense.DENSE_IRON_ORE, Provider.DENSE_IRON_LOOT_PROVIDER);
+        //this.registerLootTable(StoneDense.DENSE_LAPIS_ORE, Provider.DENSE_LAPIS_LOOT_PROVIDER);
+        //this.registerLootTable(StoneDense.DENSE_REDSTONE_ORE, Provider.DENSE_REDSTONE_LOOT_PROVIDER);
+        //this.registerLootTable(StoneDense.DENSE_TIN_ORE, Provider.DENSE_TIN_LOOT_PROVIDER);
+
+        this.registerDropSelfLootTable(ModBlocks.RUBY_BLOCK);
+        this.registerDropSelfLootTable(ModBlocks.SAPPHIRE_BLOCK);
+
+        /*this.registerDropSelfLootTable(BasaltOresBlocks.GOLD_BASALT_ORE);
         this.registerDropSelfLootTable(BasaltOresBlocks.IRON_BASALT_ORE);
         this.registerDropSelfLootTable(EndOresBlocks.GOLD_END_ORE);
         this.registerDropSelfLootTable(EndOresBlocks.IRON_END_ORE);
-        this.registerDropSelfLootTable(ModBlocks.RUBY_BLOCK);
-        this.registerDropSelfLootTable(ModBlocks.SAPPHIRE_BLOCK);
         this.registerDropSelfLootTable(NetherOresBlocks.ALUMINIUM_NETHER_ORE);
         this.registerDropSelfLootTable(NetherOresBlocks.COPPER_NETHER_ORE);
         this.registerDropSelfLootTable(NetherOresBlocks.GOLD_NETHER_ORE);
@@ -56,14 +120,6 @@ public class ModBlockLootTable extends DioBlockLootTables {
         this.registerDropSelfLootTable(NetherOresBlocks.LEAD_NETHER_ORE);
         this.registerDropSelfLootTable(NetherOresBlocks.TIN_NETHER_ORE);
         this.registerDropSelfLootTable(NetherOresBlocks.URANIUM_NETHER_ORE);
-        this.registerDropSelfLootTable(OverworldOresBlocks.COPPER_ORE);
-        this.registerDropSelfLootTable(OverworldOresBlocks.ALUMINIUM_ORE);
-        this.registerDropSelfLootTable(OverworldOresBlocks.LEAD_ORE);
-        this.registerDropSelfLootTable(OverworldOresBlocks.SILVER_ORE);
-        this.registerDropSelfLootTable(OverworldOresBlocks.TIN_ORE);
-        this.registerDropSelfLootTable(OverworldOresBlocks.URANIUM_ORE);
-        this.registerDropSelfLootTable(OverworldOresBlocks.ZINC_ORE);
-        this.registerDropSelfLootTable(OverworldOresBlocks.OSMIUM_ORE);
         this.registerLootTable(BasaltOresBlocks.COAL_BASALT_ORE, Provider.COAL_LOOT_PROVIDER);
         this.registerLootTable(BasaltOresBlocks.DIAMOND_BASALT_ORE, Provider.DIAMOND_LOOT_PROVIDER);
         this.registerLootTable(BasaltOresBlocks.EMERALD_BASALT_ORE, Provider.EMERALD_LOOT_PROVIDER);
@@ -75,23 +131,12 @@ public class ModBlockLootTable extends DioBlockLootTables {
         this.registerLootTable(NetherOresBlocks.EMERALD_NETHER_ORE, Provider.EMERALD_LOOT_PROVIDER);
         this.registerLootTable(NetherOresBlocks.RUBY_NETHER_ORE, Provider.RUBY_LOOT_PROVIDER);
         this.registerLootTable(NetherOresBlocks.SAPPHIRE_NETHER_ORE, Provider.SAPPHIRE_LOOT_PROVIDER);
-        this.registerLootTable(OverworldOresBlocks.RUBY_ORE, Provider.RUBY_LOOT_PROVIDER);
-        this.registerLootTable(OverworldOresBlocks.SAPPHIRE_ORE, Provider.SAPPHIRE_LOOT_PROVIDER);
         this.registerLootTable(NetherOresBlocks.LAPIS_NETHER_ORE, Provider.LAPIS_LOOT_PROVIDER);
         this.registerLootTable(EndOresBlocks.LAPIS_END_ORE, Provider.LAPIS_LOOT_PROVIDER);
         this.registerLootTable(BasaltOresBlocks.LAPIS_BASALT_ORE, Provider.LAPIS_LOOT_PROVIDER);
         this.registerLootTable(NetherOresBlocks.REDSTONE_NETHER_ORE, Provider.REDSTONE_LOOT_PROVIDER);
         this.registerLootTable(EndOresBlocks.REDSTONE_END_ORE, Provider.REDSTONE_LOOT_PROVIDER);
         this.registerLootTable(BasaltOresBlocks.REDSTONE_BASALT_ORE, Provider.REDSTONE_LOOT_PROVIDER);
-        this.registerLootTable(OverworldDenseOresBlocks.DENSE_COAL_ORE, Provider.DENSE_COAL_LOOT_PROVIDER);
-        this.registerLootTable(OverworldDenseOresBlocks.DENSE_COPPER_ORE, Provider.DENSE_COPPER_LOOT_PROVIDER);
-        this.registerLootTable(OverworldDenseOresBlocks.DENSE_DIAMOND_ORE, Provider.DENSE_DIAMOND_LOOT_PROVIDER);
-        this.registerLootTable(OverworldDenseOresBlocks.DENSE_EMERALD_ORE, Provider.DENSE_EMERALD_LOOT_PROVIDER);
-        this.registerLootTable(OverworldDenseOresBlocks.DENSE_GOLD_ORE, Provider.DENSE_GOLD_LOOT_PROVIDER);
-        this.registerLootTable(OverworldDenseOresBlocks.DENSE_IRON_ORE, Provider.DENSE_IRON_LOOT_PROVIDER);
-        this.registerLootTable(OverworldDenseOresBlocks.DENSE_LAPIS_ORE, Provider.DENSE_LAPIS_LOOT_PROVIDER);
-        this.registerLootTable(OverworldDenseOresBlocks.DENSE_REDSTONE_ORE, Provider.DENSE_REDSTONE_LOOT_PROVIDER);
-        this.registerLootTable(OverworldDenseOresBlocks.DENSE_TIN_ORE, Provider.DENSE_TIN_LOOT_PROVIDER);
         this.registerLootTable(NetherDenseOresBlocks.DENSE_COAL_NETHER_ORE, Provider.DENSE_COAL_LOOT_PROVIDER);
         this.registerLootTable(NetherDenseOresBlocks.DENSE_DIAMOND_NETHER_ORE, Provider.DENSE_DIAMOND_LOOT_PROVIDER);
         this.registerLootTable(NetherDenseOresBlocks.DENSE_EMERALD_NETHER_ORE, Provider.DENSE_EMERALD_LOOT_PROVIDER);
@@ -100,12 +145,11 @@ public class ModBlockLootTable extends DioBlockLootTables {
         this.registerLootTable(NetherDenseOresBlocks.DENSE_LAPIS_NETHER_ORE, Provider.DENSE_LAPIS_LOOT_PROVIDER);
         this.registerLootTable(NetherDenseOresBlocks.DENSE_REDSTONE_NETHER_ORE, Provider.DENSE_REDSTONE_LOOT_PROVIDER);
         this.registerLootTable(NetherDenseOresBlocks.DENSE_QUARTZ_NETHER_ORE, Provider.DENSE_QUARTZ_LOOT_PROVIDER);
-        this.registerLootTable(OverworldOresBlocks.AMETHYST_ORE, (amethyst) -> droppingItemWithFortune(amethyst, GemsItems.AMETHYST));
         this.registerLootTable(GravelsOresBlocks.DIAMOND_GRAVEL_ORE, (diamond) -> droppingItemWithFortune(diamond, DustsItems.DIAMOND_DUST));
         this.registerLootTable(GravelsOresBlocks.GOLD_GRAVEL_ORE, (gold) -> droppingItemWithFortune(gold, DustsItems.GOLD_DUST));
         this.registerLootTable(GravelsOresBlocks.IRON_GRAVEL_ORE, (iron) -> droppingItemWithFortune(iron, DustsItems.IRON_DUST));
         this.registerLootTable(GravelsOresBlocks.LAPIS_GRAVEL_ORE, (lapis) -> droppingItemWithFortune(lapis, DustsItems.LAPIS_DUST));
         this.registerLootTable(GravelsOresBlocks.COAL_GRAVEL_ORE, (coal) -> droppingItemWithFortune(coal, DustsItems.COAL_DUST));
-        this.registerLootTable(GravelsOresBlocks.EMERALD_GRAVEL_ORE, (emerald) -> droppingItemWithFortune(emerald, DustsItems.EMERALD_DUST));
+        this.registerLootTable(GravelsOresBlocks.EMERALD_GRAVEL_ORE, (emerald) -> droppingItemWithFortune(emerald, DustsItems.EMERALD_DUST));*/
     }
 }

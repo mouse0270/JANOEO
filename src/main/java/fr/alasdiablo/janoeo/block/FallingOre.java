@@ -5,10 +5,7 @@ import fr.alasdiablo.diolib.block.INetherOre;
 import fr.alasdiablo.diolib.generic.ExperienceRarity;
 import fr.alasdiablo.diolib.generic.IDropExperience;
 import fr.alasdiablo.janoeo.Janoeo;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.GravelBlock;
-import net.minecraft.block.RedstoneOreBlock;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -17,10 +14,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.extensions.IForgeBlock;
 
+import java.util.Random;
+
 /**
  * Default implementation of Ore blocks
  */
-public class RedstoneOre extends RedstoneOreBlock implements IForgeBlock, INetherOre, IEndOre, IDropExperience {
+public class FallingOre extends GravelBlock implements IForgeBlock, INetherOre, IEndOre, IDropExperience {
 
     /**
      * Variable use of store ExperienceRarity needed by IDropExperience
@@ -55,7 +54,7 @@ public class RedstoneOre extends RedstoneOreBlock implements IForgeBlock, INethe
      * @param harvestAngers    What does harvesting this ore anger
      * @param experienceRarity ExperienceRarity of the block
      */
-    public RedstoneOre(String registryName, Material material, SoundType soundType, float hardness, float resistance, int harvestLevel, ToolType toolType, String harvestAngers, ExperienceRarity experienceRarity) {
+    public FallingOre(String registryName, Material material, SoundType soundType, float hardness, float resistance, int harvestLevel, ToolType toolType, String harvestAngers, ExperienceRarity experienceRarity) {
         super(Properties.create(material)
                 .sound(soundType)
                 .hardnessAndResistance(hardness, resistance)
@@ -68,7 +67,7 @@ public class RedstoneOre extends RedstoneOreBlock implements IForgeBlock, INethe
 
     // --------------------------------------- CORE REGISTRIES --------------------------------------
     // -------------------------------------- NO MATERIAL/SOUND -------------------------------------
-    public RedstoneOre(String registryName, float hardness, float resistance, int harvestLevel, ToolType toolType, String harvestAngers, ExperienceRarity experienceRarity) {
+    public FallingOre(String registryName, float hardness, float resistance, int harvestLevel, ToolType toolType, String harvestAngers, ExperienceRarity experienceRarity) {
         super(Properties.create(Material.ROCK)
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(hardness, resistance)
@@ -79,7 +78,7 @@ public class RedstoneOre extends RedstoneOreBlock implements IForgeBlock, INethe
         setDefaults(registryName, harvestAngers, experienceRarity);
     }
     // --> JOINED HARDNESS AND RESISTANCE
-    public RedstoneOre(String registryName, float hardnessAndresistance, int harvestLevel, ToolType toolType, String harvestAngers, ExperienceRarity experienceRarity) {
+    public FallingOre(String registryName, float hardnessAndresistance, int harvestLevel, ToolType toolType, String harvestAngers, ExperienceRarity experienceRarity) {
         super(Properties.create(Material.ROCK)
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(hardnessAndresistance)
@@ -92,7 +91,7 @@ public class RedstoneOre extends RedstoneOreBlock implements IForgeBlock, INethe
 
 
     // --------------------------------------- LEAST REQUIRED ---------------------------------------
-    public RedstoneOre(String registryName, float hardness, float resistance, int harvestLevel, String harvestAngers, ExperienceRarity experienceRarity) {
+    public FallingOre(String registryName, float hardness, float resistance, int harvestLevel, String harvestAngers, ExperienceRarity experienceRarity) {
         super(Properties.create(Material.ROCK)
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(hardness, resistance)
@@ -102,7 +101,7 @@ public class RedstoneOre extends RedstoneOreBlock implements IForgeBlock, INethe
         );
         setDefaults(registryName, harvestAngers, experienceRarity);
     }
-    public RedstoneOre(String registryName, float hardness, float resistance, int harvestLevel, ExperienceRarity experienceRarity) {
+    public FallingOre(String registryName, float hardness, float resistance, int harvestLevel, ExperienceRarity experienceRarity) {
         super(Properties.create(Material.ROCK)
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(hardness, resistance)
@@ -112,7 +111,7 @@ public class RedstoneOre extends RedstoneOreBlock implements IForgeBlock, INethe
         );
         setDefaults(registryName, "NOTHING", experienceRarity);
     }
-    public RedstoneOre(String registryName, float hardness, float resistance, int harvestLevel) {
+    public FallingOre(String registryName, float hardness, float resistance, int harvestLevel) {
         super(Properties.create(Material.ROCK)
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(hardness, resistance)
@@ -122,7 +121,7 @@ public class RedstoneOre extends RedstoneOreBlock implements IForgeBlock, INethe
         );
         setDefaults(registryName, "NOTHING", ExperienceRarity.NULL);
     }
-    public RedstoneOre(String registryName, int harvestLevel, ExperienceRarity experienceRarity) {
+    public FallingOre(String registryName, int harvestLevel, ExperienceRarity experienceRarity) {
         super(Properties.create(Material.ROCK)
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(3.0f)
@@ -132,7 +131,7 @@ public class RedstoneOre extends RedstoneOreBlock implements IForgeBlock, INethe
         );
         setDefaults(registryName, "NOTHING", experienceRarity);
     }
-    public RedstoneOre(String registryName, int harvestLevel) {
+    public FallingOre(String registryName, int harvestLevel) {
         super(Properties.create(Material.ROCK)
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(3.0f)
@@ -171,8 +170,8 @@ public class RedstoneOre extends RedstoneOreBlock implements IForgeBlock, INethe
     /**
      * Rewrite <i>getExpDrop</i> for make it compatible with <i>IDropExperience</i>
      *
-     * @see IDropExperience
-     * @see IForgeBlock
+     * @see fr.alasdiablo.diolib.generic.IDropExperience
+     * @see net.minecraftforge.common.extensions.IForgeBlock
      */
     @Override
     public int getExpDrop(BlockState state, IWorldReader world, BlockPos pos, int fortune, int silktouch) {
@@ -185,7 +184,7 @@ public class RedstoneOre extends RedstoneOreBlock implements IForgeBlock, INethe
     /**
      * Implement getter of <i>IDropExperience</i>
      *
-     * @see IDropExperience
+     * @see fr.alasdiablo.diolib.generic.IDropExperience
      */
     @Override
     public ExperienceRarity getExperienceRarity() {
