@@ -36,12 +36,12 @@ public class SmeltingBlastingRecipes extends RecipeProvider {
         this.registerSmeltingBlasting(Stone.AMETHYST_ORE, AllItems.Gems.AMETHYST, "has_amethyst_ore", consumer);
         this.registerSmeltingBlasting(Stone.ZINC_ORE, AllItems.Ingots.ZINC, "has_zinc_ore", consumer);*/
 
-        this.registerSmeltingBlasting(DustsItems.IRON_DUST, Items.IRON_INGOT, "has_iron_dust", consumer);
+        /*this.registerSmeltingBlasting(DustsItems.IRON_DUST, Items.IRON_INGOT, "has_iron_dust", consumer);
         this.registerSmeltingBlasting(DustsItems.GOLD_DUST, Items.GOLD_INGOT, "has_gold_dust", consumer);
         this.registerSmeltingBlasting(DustsItems.DIAMOND_DUST, Items.DIAMOND, "has_diamond_dust", consumer);
         this.registerSmeltingBlasting(DustsItems.COAL_DUST, Items.COAL, "has_coal_dust", consumer);
         this.registerSmeltingBlasting(DustsItems.LAPIS_DUST, Items.LAPIS_LAZULI, "has_lapis_dust", consumer);
-        this.registerSmeltingBlasting(DustsItems.EMERALD_DUST, Items.EMERALD, "has_emerald_dust", consumer);
+        this.registerSmeltingBlasting(DustsItems.EMERALD_DUST, Items.EMERALD, "has_emerald_dust", consumer);*/
 
         /*this.registerSmeltingBlasting(GravelsOresBlocks.IRON_GRAVEL_ORE, Items.IRON_INGOT, "has_gravel_iron_ore", consumer);
         this.registerSmeltingBlasting(GravelsOresBlocks.GOLD_GRAVEL_ORE, Items.GOLD_INGOT, "has_gravel_gold_ore", consumer);

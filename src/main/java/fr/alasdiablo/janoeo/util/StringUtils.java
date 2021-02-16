@@ -1,21 +1,39 @@
 package fr.alasdiablo.janoeo.util;
 
 import com.google.common.base.CaseFormat;
+import fr.alasdiablo.janoeo.Janoeo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import static fr.alasdiablo.janoeo.util.Registries.registryName;
 
 public class StringUtils {
 
-    public static String cleanOreName(String oreName) {
+    public static String cleanOreName(String oreName, Boolean removeOreSuffix) {
+        List<String> purgeWords = new ArrayList<String>() {{
+            add("_DENSE"); add("_dense");
+            add("GRAVEL_"); add("gravel_");
+            add("NETHER_"); add("nether_");
+            add("BASALT_"); add("basalt_");
+            add("END_"); add("end_");
+        }};
+        if (removeOreSuffix) {
+            purgeWords.add("_ORE");
+            purgeWords.add("_ore");
+        }
 
-        String purge[] = {"DENSE_", "_GRAVEL", "_NETHER", "_BASALT", "_END"};
         String cleanOreName = oreName;
-        for (int i = 0; i < purge.length; ++i) {
-            cleanOreName = cleanOreName.replace(purge[i], "");
+        for (String purgeWord : purgeWords) {
+            cleanOreName = cleanOreName.replace(purgeWord, "");
         }
 
         return cleanOreName.toString();
+    }
+    public static String cleanOreName(String oreName) {
+        return cleanOreName(oreName, false);
     }
 
     public static String decapitalize(String string) {

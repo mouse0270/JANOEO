@@ -68,6 +68,7 @@ public class GlobalConfig {
             NETHER_DENSE_ORE_GEN = builder.comment("Nether dense ore generation: disable / enable").define("denseOreGen", true);
             EXTRA_ORE_GEN = builder.comment("Extra ore generation: disable / enable").define("extraOreGen", true);
             EXTRA_NETHER_ORE_GEN = builder.comment("Extra nether ore generation: disable / enable").define("extraNetherOreGen", true);
+
             builder.pop();
         }
     }

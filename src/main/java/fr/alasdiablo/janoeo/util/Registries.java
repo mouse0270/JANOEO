@@ -1,5 +1,9 @@
 package fr.alasdiablo.janoeo.util;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
+import javax.annotation.Nullable;
+
 /**
  * class with all registry name
  */
@@ -9,12 +13,17 @@ public class Registries {
     // --------------------------------------- CORE REGISTRIES --------------------------------------
     public static final String MODID						= "janoeo";
 
-    public static String registryName(String registryName, String block, boolean isDense) {
-        if (isDense) registryName = "dense_" + registryName;
-        return registryName + "_" + block.toLowerCase();
+    public static String registryName(String registryName,  @Nullable String prefix, @Nullable String suffix) {
+        if (prefix != null) registryName = prefix + "_" + registryName;
+        if (suffix != null) registryName = registryName + "_" + suffix;
+
+        return registryName.toLowerCase();
     }
-    public static String registryName(String registryName, String block) {
-        return registryName(registryName, block, false);
+    public static String registryName(String registryName, @Nullable String prefix, @Nullable String suffix, Boolean cleanName) {
+        return registryName(StringUtils.cleanOreName(registryName, true), prefix, suffix);
+    }
+    public static String registryName(String registryName, String prefix) {
+        return registryName(registryName, prefix, null);
     }
 
     // --------------------------------------- overworld.stone --------------------------------------

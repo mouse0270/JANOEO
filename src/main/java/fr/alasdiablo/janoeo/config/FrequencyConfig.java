@@ -26,13 +26,19 @@ public class FrequencyConfig {
     public static class Config {
 
         public final Map<String, HashMap<String, HashMap<String, IntValue>>> ORE_FREQUENCY = new HashMap<String, HashMap<String, HashMap<String, IntValue>>>();
-        public final int sizeMin = 1, sizeAverage = 10, sizeMax = 128, countMin = 0, countAverage = 12, countMax = 128, worldMin = 1, worldMax = 255, factorMin = 1, factorMax = 32;
+        public final int sizeMin = 1, sizeAverage = 10, sizeMax = 128, countMin = 0, countAverage = 12, countMax = 128, worldMin = 1, worldAverage = 64, worldMax = 255, factorMin = 1, factorMax = 32;
 
         public Config(ForgeConfigSpec.Builder builder) {
             builder.comment("Ore frequency and height config for janoeo").push("janoeo");
 
             //final int sizeMin = 1, sizeMax = 128, countMin = 0, countMax = 128, worldMin = 1, worldMax = 255, factorMin = 1, factorMax = 32;
             ORE_FREQUENCY.put("COAL_ORE", new HashMap<String, HashMap<String, IntValue>>() {{
+                put("OVERWORLD.STONE", new HashMap<String, IntValue>() {{
+                    put("SIZE",     builder.defineInRange("overworld.stone.coal.size", 20, sizeMin, sizeMax));
+                    put("COUNT",    builder.defineInRange("overworld.stone.coal.count", 17, countMin, countMax));
+                    put("TOP",      builder.defineInRange("overworld.stone.coal.top", worldMax, worldMin, worldMax));
+                    put("BOTTOM",   builder.defineInRange("overworld.stone.coal.bottom", worldMin, worldMin, worldMax));
+                }});
                 put("OVERWORLD.STONE.DENSE", new HashMap<String, IntValue>() {{
                     put("COUNT",   builder.defineInRange("overworld.stone.dense.coal.count", 128, countMin, countMax));
                     put("TOP",      builder.defineInRange("overworld.stone.dense.coal.top", worldMax, worldMin, worldMax));
@@ -42,6 +48,12 @@ public class FrequencyConfig {
             }});
 
             ORE_FREQUENCY.put("IRON_ORE", new HashMap<String, HashMap<String, IntValue>>() {{
+                put("OVERWORLD.STONE", new HashMap<String, IntValue>() {{
+                    put("SIZE",     builder.defineInRange("overworld.stone.iron.size", 9, sizeMin, sizeMax));
+                    put("COUNT",    builder.defineInRange("overworld.stone.iron.count", 20, countMin, countMax));
+                    put("TOP",      builder.defineInRange("overworld.stone.iron.top", 64, worldMin, worldMax));
+                    put("BOTTOM",   builder.defineInRange("overworld.stone.iron.bottom", worldMin, worldMin, worldMax));
+                }});
                 put("OVERWORLD.STONE.DENSE", new HashMap<String, IntValue>() {{
                     put("COUNT",   builder.defineInRange("overworld.stone.dense.iron.count", 128, countMin, countMax));
                     put("TOP",      builder.defineInRange("overworld.stone.dense.iron.top", worldMax, worldMin, worldMax));
@@ -51,6 +63,12 @@ public class FrequencyConfig {
             }});
 
             ORE_FREQUENCY.put("GOLD_ORE", new HashMap<String, HashMap<String, IntValue>>() {{
+                put("OVERWORLD.STONE", new HashMap<String, IntValue>() {{
+                    put("SIZE",     builder.defineInRange("overworld.stone.gold.size", 9, sizeMin, sizeMax));
+                    put("COUNT",    builder.defineInRange("overworld.stone.gold.count", 2, countMin, countMax));
+                    put("TOP",      builder.defineInRange("overworld.stone.gold.top", 32, worldMin, worldMax));
+                    put("BOTTOM",   builder.defineInRange("overworld.stone.gold.bottom", worldMin, worldMin, worldMax));
+                }});
                 put("OVERWORLD.STONE.DENSE", new HashMap<String, IntValue>() {{
                     put("COUNT",   builder.defineInRange("overworld.stone.dense.gold.count", 128, countMin, countMax));
                     put("TOP",      builder.defineInRange("overworld.stone.dense.gold.top", worldMax, worldMin, worldMax));
@@ -60,6 +78,12 @@ public class FrequencyConfig {
             }});
 
             ORE_FREQUENCY.put("DIAMOND_ORE", new HashMap<String, HashMap<String, IntValue>>() {{
+                put("OVERWORLD.STONE", new HashMap<String, IntValue>() {{
+                    put("SIZE",     builder.defineInRange("overworld.stone.diamond.size", 8, sizeMin, sizeMax));
+                    put("COUNT",    builder.defineInRange("overworld.stone.diamond.count", 1, countMin, countMax));
+                    put("TOP",      builder.defineInRange("overworld.stone.diamond.top", 16, worldMin, worldMax));
+                    put("BOTTOM",   builder.defineInRange("overworld.stone.diamond.bottom", worldMin, worldMin, worldMax));
+                }});
                 put("OVERWORLD.STONE.DENSE", new HashMap<String, IntValue>() {{
                     put("COUNT",   builder.defineInRange("overworld.stone.dense.diamond.count", 128, countMin, countMax));
                     put("TOP",      builder.defineInRange("overworld.stone.dense.diamond.top", worldMax, worldMin, worldMax));
@@ -69,6 +93,12 @@ public class FrequencyConfig {
             }});
 
             ORE_FREQUENCY.put("EMERALD_ORE", new HashMap<String, HashMap<String, IntValue>>() {{
+                put("OVERWORLD.STONE", new HashMap<String, IntValue>() {{
+                    put("SIZE",     builder.defineInRange("overworld.stone.emerald.size", 2, sizeMin, sizeMax));
+                    put("COUNT",    builder.defineInRange("overworld.stone.emerald.count", 3, countMin, countMax));
+                    put("TOP",      builder.defineInRange("overworld.stone.emerald.top", 32, worldMin, worldMax));
+                    put("BOTTOM",   builder.defineInRange("overworld.stone.emerald.bottom", worldMin, worldMin, worldMax));
+                }});
                 put("OVERWORLD.STONE.DENSE", new HashMap<String, IntValue>() {{
                     put("COUNT",   builder.defineInRange("overworld.stone.dense.emerald.count", 128, countMin, countMax));
                     put("TOP",      builder.defineInRange("overworld.stone.dense.emerald.top", worldMax, worldMin, worldMax));
@@ -78,6 +108,12 @@ public class FrequencyConfig {
             }});
 
             ORE_FREQUENCY.put("LAPIS_ORE", new HashMap<String, HashMap<String, IntValue>>() {{
+                put("OVERWORLD.STONE", new HashMap<String, IntValue>() {{
+                    put("SIZE",     builder.defineInRange("overworld.stone.lapis.size", 7, sizeMin, sizeMax));
+                    put("COUNT",    builder.defineInRange("overworld.stone.lapis.count", 2, countMin, countMax));
+                    put("TOP",      builder.defineInRange("overworld.stone.lapis.top", 32, worldMin, worldMax));
+                    put("BOTTOM",   builder.defineInRange("overworld.stone.lapis.bottom", worldMin, worldMin, worldMax));
+                }});
                 put("OVERWORLD.STONE.DENSE", new HashMap<String, IntValue>() {{
                     put("COUNT",   builder.defineInRange("overworld.stone.dense.lapis.count", 128, countMin, countMax));
                     put("TOP",      builder.defineInRange("overworld.stone.dense.lapis.top", worldMax, worldMin, worldMax));
@@ -87,6 +123,12 @@ public class FrequencyConfig {
             }});
 
             ORE_FREQUENCY.put("REDSTONE_ORE", new HashMap<String, HashMap<String, IntValue>>() {{
+                put("OVERWORLD.STONE", new HashMap<String, IntValue>() {{
+                    put("SIZE",     builder.defineInRange("overworld.stone.redstone.size", 8, sizeMin, sizeMax));
+                    put("COUNT",    builder.defineInRange("overworld.stone.redstone.count", 8, countMin, countMax));
+                    put("TOP",      builder.defineInRange("overworld.stone.redstone.top", 32, worldMin, worldMax));
+                    put("BOTTOM",   builder.defineInRange("overworld.stone.redstone.bottom", worldMin, worldMin, worldMax));
+                }});
                 put("OVERWORLD.STONE.DENSE", new HashMap<String, IntValue>() {{
                     put("COUNT",   builder.defineInRange("overworld.stone.dense.redstone.count", 128, countMin, countMax));
                     put("TOP",      builder.defineInRange("overworld.stone.dense.redstone.top", worldMax, worldMin, worldMax));

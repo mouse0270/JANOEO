@@ -28,8 +28,8 @@ public class ModBlockLootTable extends DioBlockLootTables {
         private static final Function<Block, LootTable.Builder> COAL_LOOT_PROVIDER =  (coal) -> droppingItemWithFortune(coal, Items.COAL);
         private static final Function<Block, LootTable.Builder> DIAMOND_LOOT_PROVIDER =  (diamond) -> droppingItemWithFortune(diamond, Items.DIAMOND);
         private static final Function<Block, LootTable.Builder> EMERALD_LOOT_PROVIDER =  (emerald) -> droppingItemWithFortune(emerald, Items.EMERALD);
-        private static final Function<Block, LootTable.Builder> RUBY_LOOT_PROVIDER = (ruby) -> droppingItemWithFortune(ruby, GemsItems.RUBY);
-        private static final Function<Block, LootTable.Builder> SAPPHIRE_LOOT_PROVIDER = (sapphire) -> droppingItemWithFortune(sapphire, GemsItems.SAPPHIRE);
+        //private static final Function<Block, LootTable.Builder> RUBY_LOOT_PROVIDER = (ruby) -> droppingItemWithFortune(ruby, GemsItems.RUBY);
+        //private static final Function<Block, LootTable.Builder> SAPPHIRE_LOOT_PROVIDER = (sapphire) -> droppingItemWithFortune(sapphire, GemsItems.SAPPHIRE);
         private static final Function<Block, LootTable.Builder> REDSTONE_LOOT_PROVIDER = (redstone) -> droppingWithSilkTouch(redstone, withExplosionDecay(redstone, ItemLootEntry.builder(Items.REDSTONE).acceptFunction(SetCount.builder(RandomValueRange.of(4.0F, 5.0F))).acceptFunction(ApplyBonus.uniformBonusCount(Enchantments.FORTUNE))));
         private static final Function<Block, LootTable.Builder> DENSE_LAPIS_LOOT_PROVIDER = (lapis) -> droppingWithSilkTouch(lapis, withExplosionDecay(lapis, ItemLootEntry.builder(Items.LAPIS_LAZULI).acceptFunction(SetCount.builder(RandomValueRange.of(9.0F, 17.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));
         private static final Function<Block, LootTable.Builder> DENSE_COAL_LOOT_PROVIDER = (coal) -> droppingWithSilkTouch(coal, withExplosionDecay(coal, ItemLootEntry.builder(Items.COAL).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 3.0F))).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))));

@@ -28,7 +28,7 @@ public class CraftRecipes extends RecipeProvider {
     @SuppressWarnings("NullableProblems")
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-        ShapelessRecipeBuilder.shapelessRecipe(AllItems.Gems.RUBY, 9)
+        /*ShapelessRecipeBuilder.shapelessRecipe(AllItems.Gems.RUBY, 9)
                 .addIngredient(ModBlocks.RUBY_BLOCK)
                 .addCriterion("has_ruby_block", hasItem(ModBlocks.RUBY_BLOCK))
                 .build(consumer, new ResourceLocation(Registries.MODID, "ruby_from_block"));
@@ -52,7 +52,7 @@ public class CraftRecipes extends RecipeProvider {
                 .patternLine("SSS")
                 .patternLine("SSS")
                 .addCriterion("has_sapphire", hasItem(ModBlocks.SAPPHIRE_BLOCK))
-                .build(consumer);
+                .build(consumer);*/
     }
 
     @SuppressWarnings("NullableProblems")

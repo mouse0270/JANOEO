@@ -45,9 +45,30 @@ public class OresFeatures {
             RuleTest oreRuleTest = ORE.getValue().getRuleTest();
             // GET ORE BLOCKSTATE
             BlockState oreBlockState = getValueOrDefault(ORE.getValue().getBlockState(), oreBlock.getDefaultState());
+            // DEFINE FREQUENCY VARIABLES
+            int frequencySize = FREQUENCY_CONFIG.sizeAverage,
+                frequencyCount = FREQUENCY_CONFIG.countAverage,
+                frequencyBottom = FREQUENCY_CONFIG.worldMin,
+                frequencyTop = FREQUENCY_CONFIG.worldAverage;
 
-            if (FREQUENCY_CONFIG.ORE_FREQUENCY.containsKey(oreName) && FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).containsKey(frequencyType)) {
-                Janoeo.logger.debug("Ore Feature: Registering " + oreName + ".");
+            if (FREQUENCY_CONFIG.ORE_FREQUENCY.containsKey(oreName)) {
+                // SET FREQUENCY SIZE
+                if (FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).containsKey(frequencyType)) {
+                    if (FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).containsKey("SIZE"))
+                        frequencySize = getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("SIZE").get(), FREQUENCY_CONFIG.sizeAverage);
+
+                    if (FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).containsKey("COUNT"))
+                        frequencyCount = getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("COUNT").get(), FREQUENCY_CONFIG.countAverage);
+
+                    if (FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).containsKey("BOTTOM"))
+                        frequencyBottom = getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("BOTTOM").get(), FREQUENCY_CONFIG.worldMin);
+
+                    if (FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).containsKey("TOP"))
+                        frequencyTop = getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("TOP").get(), FREQUENCY_CONFIG.worldAverage);
+                }else{
+                    Janoeo.logger.debug("Ore Feature: Useing averages to Register Feature for " + oreName + ". FREQUENCY TYPE NOT FOUND");
+                }
+
                 if (FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).containsKey("FACTOR")) {
                     // DENSE ORE
                     Janoeo.logger.debug("Ore Feature: Registering " + oreName + ". DENSE ORE!");
@@ -56,24 +77,17 @@ public class OresFeatures {
                                 Objects.requireNonNull(RegistryHelper.setPrefixOnRegistryName(oreBlock.getRegistryName(), String.valueOf(i))),
                                 oreBlockState,
                                 oreBlock.getDefaultState(),
-                                getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("COUNT").get(), FREQUENCY_CONFIG.countMax),
-                                getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("BOTTOM").get(), FREQUENCY_CONFIG.worldMin),
-                                getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("TOP").get(), FREQUENCY_CONFIG.worldMax)
+                                frequencyCount, frequencyBottom, frequencyTop
                         );
                     }
                 }else {
                     Janoeo.logger.debug("Ore Feature: Registering " + oreName + ". NORMAL ORE!");
                     if (oreRuleTest != null) {
-                        Janoeo.logger.debug("Ore Feature: RegisterOreFeature");
-                        Janoeo.logger.debug(oreRuleTest + " " + oreBlock.getDefaultState());
                         WorldGenerationHelper.ConfiguredFeatureHelper.registerOreFeature(
                                 Objects.requireNonNull(oreBlock.getRegistryName()),
                                 oreRuleTest,
                                 oreBlock.getDefaultState(),
-                                getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("SIZE").get(), FREQUENCY_CONFIG.sizeAverage),
-                                getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("COUNT").get(), FREQUENCY_CONFIG.countAverage),
-                                getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("BOTTOM").get(), FREQUENCY_CONFIG.worldMin),
-                                getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("TOP").get(), FREQUENCY_CONFIG.worldMax)
+                                frequencySize, frequencyCount, frequencyBottom, frequencyTop
                         );
                     } else {
                         Janoeo.logger.debug("Ore Feature: RegisterReplaceBlockFeature");
@@ -81,9 +95,7 @@ public class OresFeatures {
                                 Objects.requireNonNull(oreBlock.getRegistryName()),
                                 oreBlockState,
                                 oreBlock.getDefaultState(),
-                                getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("COUNT").get(), FREQUENCY_CONFIG.countAverage),
-                                getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("BOTTOM").get(), FREQUENCY_CONFIG.worldMin),
-                                getValueOrDefault(FREQUENCY_CONFIG.ORE_FREQUENCY.get(oreName).get(frequencyType).get("TOP").get(), FREQUENCY_CONFIG.worldMax)
+                                frequencyCount, frequencyBottom, frequencyTop
                         );
                     }
                 }
@@ -95,32 +107,6 @@ public class OresFeatures {
                 }
             }
         }
-
-        /*
-        WorldGenerationHelper.ConfiguredFeatureHelper.registerOreFeature(
-                Objects.requireNonNull(
-                        OverworldOresBlocks.COPPER_ORE.getRegistryName()
-                ),
-                OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                OverworldOresBlocks.COPPER_ORE.getDefaultState(),
-                FREQUENCY_CONFIG.COPPER_ORE_SIZE.get(),
-                FREQUENCY_CONFIG.COPPER_ORE_COUNT.get(),
-                FREQUENCY_CONFIG.COPPER_ORE_BOTTOM.get(),
-                FREQUENCY_CONFIG.COPPER_ORE_TOP.get()
-        );
-
-
-        WorldGenerationHelper.ConfiguredFeatureHelper.registerReplaceBlockFeature(
-                Objects.requireNonNull(
-                        NetherOresBlocks.EMERALD_NETHER_ORE.getRegistryName()
-                ),
-                Blocks.NETHERRACK.getDefaultState(),
-                NetherOresBlocks.EMERALD_NETHER_ORE.getDefaultState(),
-                FREQUENCY_CONFIG.EMERALD_NETHER_ORE_COUNT.get(),
-                FREQUENCY_CONFIG.EMERALD_NETHER_ORE_BOTTOM.get(),
-                FREQUENCY_CONFIG.EMERALD_NETHER_ORE_TOP.get()
-        );
-        */
     }
 
 }

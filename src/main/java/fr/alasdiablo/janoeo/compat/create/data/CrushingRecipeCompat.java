@@ -56,7 +56,7 @@ public class CrushingRecipeCompat extends ProcessingRecipeGen {
     }
 
     private void dust() {
-        this.create(() -> Items.DIAMOND, builder -> builder.duration(500).output(AllItems.Dusts.DIAMOND));
+        /*this.create(() -> Items.DIAMOND, builder -> builder.duration(500).output(AllItems.Dusts.DIAMOND));
         this.create(() -> Items.EMERALD, builder -> builder.duration(500).output(AllItems.Dusts.EMERALD));
         this.create(() -> Items.IRON_INGOT, builder -> builder.duration(400).output(AllItems.Dusts.IRON));
         this.create(() -> Items.GOLD_INGOT, builder -> builder.duration(300).output(AllItems.Dusts.GOLD));
@@ -71,7 +71,7 @@ public class CrushingRecipeCompat extends ProcessingRecipeGen {
         this.provider.dustFromIngotWithTag("tin", AllItems.Dusts.TIN, 300);
         this.provider.dustFromIngotWithTag("uranium", AllItems.Dusts.URANIUM, 400);
         this.provider.dustFromGemsWithTag("ruby", AllItems.Dusts.RUBY, 500);
-        this.provider.dustFromGemsWithTag("sapphire", AllItems.Dusts.SAPPHIRE, 500);
+        this.provider.dustFromGemsWithTag("sapphire", AllItems.Dusts.SAPPHIRE, 500);*/
     }
 
     @Override

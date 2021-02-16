@@ -1,7 +1,9 @@
 package fr.alasdiablo.janoeo;
 
 import fr.alasdiablo.janoeo.config.*;
+import fr.alasdiablo.janoeo.config.ores.SandConfig;
 import fr.alasdiablo.janoeo.config.ores.StoneConfig;
+import fr.alasdiablo.janoeo.init.ores.Sand;
 import fr.alasdiablo.janoeo.init.ores.Stone;
 import fr.alasdiablo.janoeo.init.ores.StoneDense;
 import fr.alasdiablo.janoeo.util.Registries;
@@ -54,6 +56,8 @@ public class Janoeo {
     private void initFeatures(RegistryEvent.NewRegistry e) {
         OresFeatures.initOre(Stone.ORES, "OVERWORLD.STONE");
         OresFeatures.initOre(StoneDense.ORES, "OVERWORLD.STONE.DENSE");
+
+        OresFeatures.initOre(Sand.ORES, "OVERWORLD.STONE");
     }
 
     /**
@@ -74,6 +78,7 @@ public class Janoeo {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GlobalConfig.CONFIG_SPEC, "janoeo/janoeo.toml");
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, StoneConfig.CONFIG_SPEC, "janoeo/ore/stone.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SandConfig.CONFIG_SPEC, "janoeo/ore/sand.toml");
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FrequencyConfig.CONFIG_SPEC, "janoeo/ore/frequency.toml");
     }

@@ -1,0 +1,6 @@
+{
+  "parent": "janoeo:block/ores/ore",
+  "textures": {
+    "all": "janoeo:block/stone/copper_ore"
+  }
+}

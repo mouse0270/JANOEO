@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "janoeo:block/ores/sand/dense/coal_ore"
+    }
+  }
+}
