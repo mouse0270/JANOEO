@@ -1,11 +1,16 @@
 package fr.alasdiablo.janoeo.data;
 
 import fr.alasdiablo.diolib.data.DioBlockLootTables;
+import fr.alasdiablo.janoeo.Janoeo;
 import fr.alasdiablo.janoeo.init.*;
+import fr.alasdiablo.janoeo.init.items.Dusts;
+import fr.alasdiablo.janoeo.init.ores.Sand;
 import fr.alasdiablo.janoeo.init.ores.Stone;
 import fr.alasdiablo.janoeo.init.ores.StoneDense;
 import fr.alasdiablo.janoeo.util.LootTableProvider;
 import fr.alasdiablo.janoeo.util.OreBlockProperties;
+import fr.alasdiablo.janoeo.util.Registries;
+import fr.alasdiablo.janoeo.util.StringUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantments;
@@ -16,9 +21,12 @@ import net.minecraft.loot.RandomValueRange;
 import net.minecraft.loot.functions.ApplyBonus;
 import net.minecraft.loot.functions.SetCount;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
+import static fr.alasdiablo.janoeo.util.Registries.registryName;
 
 public class ModBlockLootTable extends DioBlockLootTables {
 
@@ -49,21 +57,21 @@ public class ModBlockLootTable extends DioBlockLootTables {
         return value == null ? defaultValue : value;
     }
 
-    private void buildLootTable(String oreName, OreBlockProperties oreBlockProperties) {
+    private void buildLootTable(String oreName, OreBlockProperties oreBlockProperties, @Nullable LootTableProvider oreLootTable) {
         // GET ORE BLOCK
         Block oreBlock = oreBlockProperties.getBlock();
         // GET ORE LOOT TABLE OPTIONS
-        LootTableProvider oreLootTable = oreBlockProperties.getLootTableProvider();
+        //LootTableProvider oreLootTable = oreBlockProperties.getLootTableProvider();
 
         if (oreLootTable == null) {
             this.registerDropSelfLootTable(oreBlock);
         }else{
             this.registerLootTable(oreBlock, (item) -> droppingWithSilkTouch(
-                    item, withExplosionDecay(
-                            item, ItemLootEntry.builder(getValueOrDefault(oreLootTable.getItem(), oreLootTable.getBlock())).acceptFunction(
-                                    SetCount.builder(RandomValueRange.of(oreLootTable.getMinDropRate(), oreLootTable.getMaxDropRate()))
-                            ).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))
-                    )
+                item, withExplosionDecay(
+                    item, ItemLootEntry.builder(getValueOrDefault(oreLootTable.getItem(), oreLootTable.getBlock())).acceptFunction(
+                        SetCount.builder(RandomValueRange.of(oreLootTable.getMinDropRate(), oreLootTable.getMaxDropRate()))
+                    ).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))
+                )
             ));
         }
     }
@@ -73,12 +81,27 @@ public class ModBlockLootTable extends DioBlockLootTables {
         // ----------------------------------------------------------------------------------------------
         // --------------------------------------- OVERWORLD.STONE --------------------------------------
         for (Map.Entry<String, OreBlockProperties> ORE : Stone.ORES.entrySet()) {
-            buildLootTable(ORE.getKey(), ORE.getValue());
+            buildLootTable(ORE.getKey(), ORE.getValue(), ORE.getValue().getLootTableProvider());
         }
 
         // ------------------------------------ OVERWORLD.STONE.DENSE -----------------------------------
         for (Map.Entry<String, OreBlockProperties> ORE : StoneDense.ORES.entrySet()) {
-            buildLootTable(ORE.getKey(), ORE.getValue());
+            buildLootTable(ORE.getKey(), ORE.getValue(), ORE.getValue().getLootTableProvider());
+        }
+
+        // ----------------------------------------------------------------------------------------------
+        // --------------------------------------- OVERWORLD.SAND ---------------------------------------
+        for (Map.Entry<String, OreBlockProperties> ORE : Sand.ORES.entrySet()) {
+            LootTableProvider oreLoot = ORE.getValue().getLootTableProvider();
+
+            if (oreLoot == null) {
+                Janoeo.logger.debug("TESTING: " + registryName(ORE.getKey(), null, "DUST", true).toUpperCase());
+                if (Dusts.ITEMS.containsKey(registryName(ORE.getKey(), null, "DUST", true).toUpperCase())) {
+                    oreLoot = new LootTableProvider(Dusts.ITEMS.get(registryName(ORE.getKey(), null, "DUST", true).toUpperCase()));
+                }
+            }
+
+            buildLootTable(ORE.getKey(), ORE.getValue(), oreLoot);
         }
 
         //this.registerDropSelfLootTable(Stone.ALUMINIUM_ORE);

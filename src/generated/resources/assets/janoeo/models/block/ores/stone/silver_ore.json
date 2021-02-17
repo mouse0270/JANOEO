@@ -1,0 +1,7 @@
+{
+  "parent": "janoeo:block/ores/stone/silver_ore",
+  "textures": {
+    "block": "minecraft:block/stone",
+    "particle": "minecraft:block/stone"
+  }
+}

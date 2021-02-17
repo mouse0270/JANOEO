@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "janoeo:smelting_osmium_dust_to_osmium_ingot"
+    ]
+  },
+  "criteria": {
+    "has_osmium_dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "janoeo:osmium_dust"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "janoeo:smelting_osmium_dust_to_osmium_ingot"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_osmium_dust",
+      "has_the_recipe"
+    ]
+  ]
+}

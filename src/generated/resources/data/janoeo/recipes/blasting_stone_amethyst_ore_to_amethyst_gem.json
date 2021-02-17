@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "janoeo:stone_amethyst_ore"
+  },
+  "result": "janoeo:amethyst_gem",
+  "experience": 0.1,
+  "cookingtime": 100
+}

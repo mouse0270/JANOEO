@@ -6,12 +6,16 @@ import fr.alasdiablo.janoeo.Janoeo;
 import fr.alasdiablo.janoeo.block.BasicOre;
 import fr.alasdiablo.janoeo.block.FallingOre;
 import fr.alasdiablo.janoeo.block.RedstoneOre;
+import fr.alasdiablo.janoeo.init.items.Dusts;
+import fr.alasdiablo.janoeo.init.items.Gems;
 import fr.alasdiablo.janoeo.util.JanoeoGroup;
 import fr.alasdiablo.janoeo.util.LootTableProvider;
 import fr.alasdiablo.janoeo.util.OreBlockProperties;
 import fr.alasdiablo.janoeo.util.Registries;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
@@ -54,12 +58,15 @@ public class Sand {
         ));
         put("LAPIS_ORE", new OreBlockProperties(
                 new FallingOre(registryName(Registries.LAPIS_ORE, "SAND"), 2, UNCOMMON),
-                ExtenedFillerBlockType.SAND.get()
+                ExtenedFillerBlockType.SAND.get(),
+                new LootTableProvider(Items.LAPIS_LAZULI, 2.0f, 4.0f)
+
         ));
         /*put("REDSTONE_ORE", new OreBlockProperties(
                 new RedstoneOre(registryName(Registries.REDSTONE_ORE, "SAND"), 2, COMMON),
-                ExtenedFillerBlockType.SAND.get()
-        ));
+                ExtenedFillerBlockType.SAND.get(),
+                new LootTableProvider(Items.REDSTONE, 4.0f, 5.0f)
+        ));*/
         // --> MODDED ORES
         put("ALUMINIUM_ORE", new OreBlockProperties(
                 new FallingOre(registryName(Registries.ALUMINIUM_ORE, "SAND"), 1, COMMON),
@@ -68,11 +75,11 @@ public class Sand {
         put("AMETHYST_ORE",  new OreBlockProperties(
                 new FallingOre(registryName(Registries.AMETHYST_ORE, "SAND"), 2, RARE),
                 ExtenedFillerBlockType.SAND.get(),
-                new LootTableProvider(GemsItems.AMETHYST)
+                new LootTableProvider(Gems.ITEMS.get("AMETHYST_GEM"))
         ));
         put("COPPER_ORE",  new OreBlockProperties(
                 new FallingOre(registryName(Registries.COPPER_ORE, "SAND"), 1, COMMON),
-                ExtenedFillerBlockType.SAND.get(),
+                ExtenedFillerBlockType.SAND.get()
         ));
         put("LEAD_ORE",  new OreBlockProperties(
                 new FallingOre(registryName(Registries.LEAD_ORE, "SAND"), 1, UNCOMMON),
@@ -105,7 +112,7 @@ public class Sand {
         put("ZINC_ORE",  new OreBlockProperties(
                 new FallingOre(registryName(Registries.ZINC_ORE, "SAND"), 2, UNCOMMON),
                 ExtenedFillerBlockType.SAND.get()
-        ));*/
+        ));
     }};
 
     /**
@@ -122,7 +129,8 @@ public class Sand {
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             for (Map.Entry<String, OreBlockProperties> ORE : ORES.entrySet()) {
                 RegistryHelper.registerBlock(event.getRegistry(), ORE.getValue().getBlock());
-                Janoeo.logger.debug("REGISTER BLOCK: " + ORE.getValue().getBlock());
+                // Used to Register Overlays on Blocks
+                RenderTypeLookup.setRenderLayer(ORE.getValue().getBlock(), RenderType.getCutout());
             }
         }
 

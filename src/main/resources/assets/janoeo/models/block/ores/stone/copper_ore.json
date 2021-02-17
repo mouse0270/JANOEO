@@ -1,6 +1,8 @@
 {
-  "parent": "janoeo:block/ores/ore",
+  "parent": "janoeo:block/ores/generic_ore",
   "textures": {
-    "all": "janoeo:block/stone/copper_ore"
+    "block": "minecraft:block/stone",
+    "overlay": "janoeo:block/overlays/copper",
+    "particle": "minecraft:block/stone"
   }
 }

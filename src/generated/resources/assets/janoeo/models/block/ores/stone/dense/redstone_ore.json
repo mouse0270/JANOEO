@@ -1,0 +1,8 @@
+{
+  "parent": "janoeo:block/ores/stone/dense/redstone_ore",
+  "textures": {
+    "block": "minecraft:block/stone",
+    "particle": "minecraft:block/stone",
+    "overlay": "janoeo:block/overlays/dense/redstone"
+  }
+}

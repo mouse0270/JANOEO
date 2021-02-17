@@ -164,7 +164,6 @@ public class BasicOre extends OreBlock implements IForgeBlock, INetherOre, IEndO
         return angersEnderman;
     }
 
-
     /**
      * Rewrite <i>getExperience</i> for make it compatible with <i>IDropExperience</i>
      *

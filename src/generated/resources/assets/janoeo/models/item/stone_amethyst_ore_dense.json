@@ -1,0 +1,6 @@
+{
+  "parent": "janoeo:block/ores/generic_ore",
+  "textures": {
+    "block": "minecraft:block/stone"
+  }
+}

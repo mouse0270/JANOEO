@@ -1,6 +1,7 @@
 {
-  "parent": "janoeo:block/ores/ore",
+  "parent": "janoeo:block/ores/generic_ore",
   "textures": {
-    "all": "janoeo:block/sand/dense/coal_ore"
+    "block": "minecraft:block/sand",
+    "overlay": "janoeo:block/overlays/dense/coal"
   }
 }

@@ -16,6 +16,8 @@ import fr.alasdiablo.janoeo.util.OreBlockProperties;
 import fr.alasdiablo.janoeo.util.Registries;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.loot.StandaloneLootEntry;
@@ -98,7 +100,8 @@ public class Stone {
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             for (Map.Entry<String, OreBlockProperties> ORE : ORES.entrySet()) {
                 RegistryHelper.registerBlock(event.getRegistry(), ORE.getValue().getBlock());
-                Janoeo.logger.debug("REGISTER BLOCK: " + ORE.getValue().getBlock());
+                // Used to Register Overlays on Blocks
+                RenderTypeLookup.setRenderLayer(ORE.getValue().getBlock(), RenderType.getCutout());
             }
         }
 

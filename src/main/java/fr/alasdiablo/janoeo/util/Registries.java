@@ -8,11 +8,7 @@ import javax.annotation.Nullable;
  * class with all registry name
  */
 public class Registries {
-
-
-    // --------------------------------------- CORE REGISTRIES --------------------------------------
-    public static final String MODID						= "janoeo";
-
+    // ------------------------------------- REGISTRIES FUNCTIONS -----------------------------------
     public static String registryName(String registryName,  @Nullable String prefix, @Nullable String suffix) {
         if (prefix != null) registryName = prefix + "_" + registryName;
         if (suffix != null) registryName = registryName + "_" + suffix;
@@ -25,6 +21,9 @@ public class Registries {
     public static String registryName(String registryName, String prefix) {
         return registryName(registryName, prefix, null);
     }
+
+    // --------------------------------------- CORE REGISTRIES --------------------------------------
+    public static final String MODID						= "janoeo";
 
     // --------------------------------------- overworld.stone --------------------------------------
     public static final String COAL_ORE                    = "coal_ore";

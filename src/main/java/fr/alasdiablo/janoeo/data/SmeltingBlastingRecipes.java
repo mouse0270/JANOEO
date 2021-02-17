@@ -1,18 +1,29 @@
 package fr.alasdiablo.janoeo.data;
 
 import fr.alasdiablo.diolib.util.RegistryHelper;
+import fr.alasdiablo.janoeo.Janoeo;
 import fr.alasdiablo.janoeo.init.*;
+import fr.alasdiablo.janoeo.init.items.Dusts;
+import fr.alasdiablo.janoeo.init.items.Ingots;
+import fr.alasdiablo.janoeo.init.ores.Sand;
 import fr.alasdiablo.janoeo.init.ores.Stone;
+import fr.alasdiablo.janoeo.util.OreBlockProperties;
 import fr.alasdiablo.janoeo.util.Registries;
+import fr.alasdiablo.janoeo.util.StringUtils;
 import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.GameData;
 
+import java.util.Locale;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public class SmeltingBlastingRecipes extends RecipeProvider {
@@ -20,9 +31,73 @@ public class SmeltingBlastingRecipes extends RecipeProvider {
         super(generatorIn);
     }
 
+    private Item getSmeltingItem(String baseName) {
+        Item smeltingItem = Items.AIR;
+
+        try {
+            if (ForgeRegistries.ITEMS.getValue(new ResourceLocation(Registries.MODID, Registries.registryName(baseName, null, "ingot"))) != Items.AIR) {
+                smeltingItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Registries.MODID, Registries.registryName(baseName, null, "ingot")));
+            }else if (ForgeRegistries.ITEMS.getValue(new ResourceLocation(Registries.MODID, Registries.registryName(baseName, null, "gem"))) != Items.AIR) {
+                smeltingItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Registries.MODID, Registries.registryName(baseName, null, "gem")));
+            }else if (ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", Registries.registryName(baseName, null, "ingot"))) != Items.AIR) {
+                smeltingItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", Registries.registryName(baseName, null, "ingot")));
+            }else if (ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", Registries.registryName(baseName, null, null))) != Items.AIR) {
+                smeltingItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", Registries.registryName(baseName, null, null)));
+            }
+        }catch (Exception ex) {
+            Janoeo.logger.debug("FAILED TO SMELT EXCEPTION:" + ex);
+        }
+
+
+        return smeltingItem;
+    }
+
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+        // ----------------------------------------------------------------------------------------------
+        // ------------------------------------- SMELTING.ORES.STONE ------------------------------------
+        for (Map.Entry<String, OreBlockProperties> ORE : Stone.ORES.entrySet()) {
+            String baseName = StringUtils.cleanOreName(ORE.getKey(), true);
+            String ingotName = Registries.registryName(baseName, null, "ingot").toUpperCase();
 
+            if (getSmeltingItem(baseName) != Items.AIR) {
+                this.registerSmeltingBlasting(ORE.getValue().getBlock(), getSmeltingItem(baseName), Registries.registryName(baseName, "has", "ore"), consumer);
+            }else{
+                Janoeo.logger.debug("FAILED TO SMELT: " + ORE.getKey());
+            }
+        }
+        // ------------------------------------- SMELTING.ORES.SAND -------------------------------------
+        for (Map.Entry<String, OreBlockProperties> ORE : Sand.ORES.entrySet()) {
+            String baseName = StringUtils.cleanOreName(ORE.getKey(), true);
+            String ingotName = Registries.registryName(baseName, null, "ingot").toUpperCase();
+
+            if (getSmeltingItem(baseName) != Items.AIR) {
+                this.registerSmeltingBlasting(ORE.getValue().getBlock(), getSmeltingItem(baseName), Registries.registryName(baseName, "has", "ore"), consumer);
+            }else{
+                Janoeo.logger.debug("FAILED TO SMELT: " + ORE.getKey() + " " + baseName);
+            }
+        }
+
+        // ----------------------------------------------------------------------------------------------
+        // ---------------------------------------- SMELTING.DUST ---------------------------------------
+        // --> HANDLE DEFAULT MINECRAFT ITEMS
+        //this.registerSmeltingBlasting(Dusts.ITEMS.get("COAL_DUST"), Items.COAL, "has_coal_dust", consumer);
+        //this.registerSmeltingBlasting(Dusts.ITEMS.get("IRON_DUST"), Items.IRON_INGOT, "has_iron_dust", consumer);
+        //this.registerSmeltingBlasting(Dusts.ITEMS.get("GOLD_DUST"), Items.GOLD_INGOT, "has_iron_dust", consumer);
+        //this.registerSmeltingBlasting(Dusts.ITEMS.get("DIAMOND_DUST"), Items.DIAMOND, "has_diamond_dust", consumer);
+        //this.registerSmeltingBlasting(Dusts.ITEMS.get("EMERALD_DUST"), Items.EMERALD, "has_emerald_dust", consumer);
+        // --> MODDED ITEMS
+        for (Map.Entry<String, Item> DUST : Dusts.ITEMS.entrySet()) {
+            String baseName = StringUtils.cleanOreName(DUST.getKey(), true);
+            String ingotName = Registries.registryName(baseName, null, "ingot").toUpperCase();
+
+
+            if (getSmeltingItem(baseName) != Items.AIR) {
+                this.registerSmeltingBlasting(DUST.getValue(), getSmeltingItem(baseName), Registries.registryName(baseName, "has", "dust"), consumer);
+            }else{
+                Janoeo.logger.debug("FAILED TO SMELT: " + DUST.getKey());
+            }
+        }
 
         /*this.registerSmeltingBlasting(Stone.COPPER_ORE, AllItems.Ingots.COPPER,"has_copper_ore", consumer);
         this.registerSmeltingBlasting(Stone.TIN_ORE, AllItems.Ingots.TIN, "has_tin_ore", consumer);

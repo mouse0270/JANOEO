@@ -11,7 +11,6 @@ import java.util.Map;
 public class Items {
     public static Map<String, List<String>> ITEMS = new HashMap<String, List<String>>() {{
         put(StringUtils.cleanOreName(Registries.COAL_ORE, true).toUpperCase(), new ArrayList<String>() {{
-            add("has_ingot");
             add("has_dust");
             add("has_gear");
             add("has_rod");
@@ -37,18 +36,17 @@ public class Items {
             add("has_rod");
         }});
         put(StringUtils.cleanOreName(Registries.LAPIS_ORE, true).toUpperCase(), new ArrayList<String>() {{
-            add("has_ingot");
             add("has_gear");
             add("has_rod");
         }});
         put(StringUtils.cleanOreName(Registries.REDSTONE_ORE, true).toUpperCase(), new ArrayList<String>() {{
-            add("has_ingot");
             add("has_gear");
             add("has_rod");
         }});
         // --> MODDED ORE
         put(StringUtils.cleanOreName(Registries.ALUMINIUM_ORE, true).toUpperCase(), new ArrayList<String>() {{
             add("has_dust");
+            add("has_nugget");
             add("has_ingot");
             add("has_gear");
             add("has_rod");

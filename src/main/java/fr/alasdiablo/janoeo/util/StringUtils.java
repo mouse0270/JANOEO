@@ -15,10 +15,15 @@ public class StringUtils {
     public static String cleanOreName(String oreName, Boolean removeOreSuffix) {
         List<String> purgeWords = new ArrayList<String>() {{
             add("_DENSE"); add("_dense");
+            add("SAND_"); add("sand_");
             add("GRAVEL_"); add("gravel_");
             add("NETHER_"); add("nether_");
             add("BASALT_"); add("basalt_");
             add("END_"); add("end_");
+            add("_INGOT"); add("_ingot");
+            add("_DUST"); add("_dust");
+            add("_GEAR"); add("_gear");
+            add("_ROD"); add("_rod");
         }};
         if (removeOreSuffix) {
             purgeWords.add("_ORE");

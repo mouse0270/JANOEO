@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "janoeo:blasting_amethyst_dust_to_amethyst_gem"
+    ]
+  },
+  "criteria": {
+    "has_amethyst_dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "janoeo:amethyst_dust"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "janoeo:blasting_amethyst_dust_to_amethyst_gem"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_amethyst_dust",
+      "has_the_recipe"
+    ]
+  ]
+}

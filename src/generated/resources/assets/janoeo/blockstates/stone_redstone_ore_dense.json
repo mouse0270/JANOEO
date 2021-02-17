@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "janoeo:block/ores/stone/dense/redstone_ore"
+    },
+    "lit=true": {
+      "model": "janoeo:block/ores/stone/dense/redstone_ore"
+    }
+  }
+}

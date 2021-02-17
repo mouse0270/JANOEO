@@ -12,6 +12,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.loot.LootParameterSets;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
@@ -33,6 +34,11 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherDate(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
+        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+
+        generator.addProvider(new ModelGenerator(generator, existingFileHelper));
+        generator.addProvider(new BlockStateGenerator(generator, existingFileHelper));
+
         generator.addProvider(new CraftRecipes(generator));
         generator.addProvider(new SmeltingBlastingRecipes(generator));
         generator.addProvider(new DioLootTableProvider(generator, ImmutableList.of(Pair.of(ModBlockLootTable::new, LootParameterSets.BLOCK)), LootParameterSets.BLOCK, "Janoeo"));
