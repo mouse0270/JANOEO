@@ -9,11 +9,9 @@ import fr.alasdiablo.janoeo.util.Registries;
 
 import fr.alasdiablo.janoeo.util.StringUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.Map;
@@ -38,20 +36,20 @@ public class BlockStateGenerator extends BlockStateProvider {
 
     private void buildModelAndState(Block block, String blockTexture, String particleTexture, String overlayTexture, String modelPath) {
         try {
-            models().withExistingParent(modelPath, mcLoc("janoeo:block/ores/generic_ore"))
+            getVariantBuilder(block).forAllStates(state -> {
+                return ConfiguredModel.builder().modelFile(models().withExistingParent(modelPath, mcLoc(Registries.MODID + ":block/ores/generic_ore"))).build();
+            });
+        }catch (Exception ex) {
+            Janoeo.logger.debug("BLOCKSTATE GENERATOR EXCEPTION: " + ex);
+        }
+
+        try {
+            models().withExistingParent(modelPath, mcLoc(Registries.MODID + ":block/ores/generic_ore"))
                     .texture("block", blockTexture)
                     .texture("particle", particleTexture)
                     .texture("overlay", overlayTexture);
         }catch (Exception ex) {
             Janoeo.logger.debug("MODEL GENERATOR EXCEPTION: " + ex);
-        }
-
-        try {
-            getVariantBuilder(block).forAllStates(state -> {
-                return ConfiguredModel.builder().modelFile(models().withExistingParent(modelPath, mcLoc(modelPath))).build();
-            });
-        }catch (Exception ex) {
-            Janoeo.logger.debug("BLOCKSTATE GENERATOR EXCEPTION: " + ex);
         }
     }
 

@@ -1,5 +1,5 @@
 {
-  "parent": "janoeo:block/ores/stone/dense/ruby_ore",
+  "parent": "janoeo:block/ores/generic_ore",
   "textures": {
     "block": "minecraft:block/stone",
     "particle": "minecraft:block/stone"

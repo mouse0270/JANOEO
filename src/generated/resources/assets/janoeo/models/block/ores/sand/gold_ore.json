@@ -1,5 +1,5 @@
 {
-  "parent": "janoeo:block/ores/sand/gold_ore",
+  "parent": "janoeo:block/ores/generic_ore",
   "textures": {
     "block": "minecraft:block/sand",
     "particle": "minecraft:block/sand",

@@ -18,6 +18,7 @@ public class OreGenUtils {
     // Instance of OreGenerator
     private static final IWorldGenerator STONE_ORE_GENERATOR = new OreGenerator();
     private static final IWorldGenerator SAND_ORE_GENERATOR = new OreGenerator();
+    private static final IWorldGenerator LOG_BIRCH_ORE_GENERATOR = new OreGenerator();
 
     /**
      * Initialized the ore generation

@@ -36,83 +36,16 @@ import static fr.alasdiablo.janoeo.util.Registries.registryName;
 public class Sand {
 
     public static Map<String, OreBlockProperties> ORES = new HashMap<String, OreBlockProperties>() {{
-        put("COAL_ORE", new OreBlockProperties(
-                new FallingOre(registryName(Registries.COAL_ORE, "SAND"), 1, COMMON),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("IRON_ORE", new OreBlockProperties(
-                new FallingOre(registryName(Registries.IRON_ORE, "SAND"), 1, COMMON),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("GOLD_ORE", new OreBlockProperties(
-                new FallingOre(registryName(Registries.GOLD_ORE, "SAND"), 2, UNCOMMON),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("DIAMOND_ORE", new OreBlockProperties(
-                new FallingOre(registryName(Registries.DIAMOND_ORE, "SAND"), 2, RARE),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("EMERALD_ORE", new OreBlockProperties(
-                new FallingOre(registryName(Registries.EMERALD_ORE, "SAND"), 2, RARE),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("LAPIS_ORE", new OreBlockProperties(
-                new FallingOre(registryName(Registries.LAPIS_ORE, "SAND"), 2, UNCOMMON),
-                ExtenedFillerBlockType.SAND.get(),
-                new LootTableProvider(Items.LAPIS_LAZULI, 2.0f, 4.0f)
+        for (Map.Entry<String, HashMap<String, OreBlockProperties>> ORE : Ores.ORE_DEFINITIONS.entrySet()) {
+            String oreKey = ORE.getKey();
+            Map<String, OreBlockProperties> oreProperties = ORE.getValue();
 
-        ));
-        /*put("REDSTONE_ORE", new OreBlockProperties(
-                new RedstoneOre(registryName(Registries.REDSTONE_ORE, "SAND"), 2, COMMON),
-                ExtenedFillerBlockType.SAND.get(),
-                new LootTableProvider(Items.REDSTONE, 4.0f, 5.0f)
-        ));*/
-        // --> MODDED ORES
-        put("ALUMINIUM_ORE", new OreBlockProperties(
-                new FallingOre(registryName(Registries.ALUMINIUM_ORE, "SAND"), 1, COMMON),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("AMETHYST_ORE",  new OreBlockProperties(
-                new FallingOre(registryName(Registries.AMETHYST_ORE, "SAND"), 2, RARE),
-                ExtenedFillerBlockType.SAND.get(),
-                new LootTableProvider(Gems.ITEMS.get("AMETHYST_GEM"))
-        ));
-        put("COPPER_ORE",  new OreBlockProperties(
-                new FallingOre(registryName(Registries.COPPER_ORE, "SAND"), 1, COMMON),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("LEAD_ORE",  new OreBlockProperties(
-                new FallingOre(registryName(Registries.LEAD_ORE, "SAND"), 1, UNCOMMON),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("OSMIUM_ORE",  new OreBlockProperties(
-                new FallingOre(registryName(Registries.OSMIUM_ORE, "SAND"), 2, UNCOMMON),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("RUBY_ORE",  new OreBlockProperties(
-                new FallingOre(registryName(Registries.RUBY_ORE, "SAND"), 2, RARE),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("SAPPHIRE_ORE",  new OreBlockProperties(
-                new FallingOre(registryName(Registries.SAPPHIRE_ORE, "SAND"), 2, RARE),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("SILVER_ORE",  new OreBlockProperties(
-                new FallingOre(registryName(Registries.SILVER_ORE, "SAND"), 2, UNCOMMON),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("TIN_ORE",  new OreBlockProperties(
-                new FallingOre(registryName(Registries.TIN_ORE, "SAND"), 1, COMMON),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("URANIUM_ORE",  new OreBlockProperties(
-                new FallingOre(registryName(Registries.URANIUM_ORE, "SAND"), 2, UNCOMMON),
-                ExtenedFillerBlockType.SAND.get()
-        ));
-        put("ZINC_ORE",  new OreBlockProperties(
-                new FallingOre(registryName(Registries.ZINC_ORE, "SAND"), 2, UNCOMMON),
-                ExtenedFillerBlockType.SAND.get()
-        ));
+            if (oreProperties.containsKey("SAND")) {
+                OreBlockProperties oreProperty = oreProperties.get("SAND");
+
+                put(oreKey, oreProperty);
+            }
+        }
     }};
 
     /**

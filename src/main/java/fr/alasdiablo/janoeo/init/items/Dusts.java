@@ -24,6 +24,10 @@ public class Dusts {
 
     private static final Item.Properties PROPERTIES = new Item.Properties().group(JanoeoGroup.ORE_ITEMS);
 
+    public static Item getItem(String oreName) {
+        return ITEMS.get(registryName(oreName, null, "DUST", true).toUpperCase());
+    }
+
     public static Map<String, Item> ITEMS = new HashMap<String, Item>() {{
         for (Map.Entry<String, List<String>> item : Items.ITEMS.entrySet()) {
             if (ArrayUtils.contains(item.getValue().toArray(new String[]{}), "has_dust")) {

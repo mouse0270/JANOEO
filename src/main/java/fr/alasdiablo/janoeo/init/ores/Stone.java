@@ -1,27 +1,13 @@
 package fr.alasdiablo.janoeo.init.ores;
 
-import static fr.alasdiablo.diolib.generic.ExperienceRarity.*;
-import static fr.alasdiablo.janoeo.util.Registries.registryName;
-
 import fr.alasdiablo.diolib.util.RegistryHelper;
-import fr.alasdiablo.diolib.world.ExtenedFillerBlockType;
 import fr.alasdiablo.janoeo.Janoeo;
-import fr.alasdiablo.janoeo.block.BasicOre;
-import fr.alasdiablo.janoeo.block.FallingOre;
-import fr.alasdiablo.janoeo.block.RedstoneOre;
-import fr.alasdiablo.janoeo.init.items.Gems;
 import fr.alasdiablo.janoeo.util.JanoeoGroup;
-import fr.alasdiablo.janoeo.util.LootTableProvider;
 import fr.alasdiablo.janoeo.util.OreBlockProperties;
-import fr.alasdiablo.janoeo.util.Registries;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.loot.StandaloneLootEntry;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -34,56 +20,17 @@ import java.util.Map;
  */
 @SuppressWarnings("unused")
 public class Stone {
-
     public static Map<String, OreBlockProperties> ORES = new HashMap<String, OreBlockProperties>() {{
-        // --> MODDED ORES
-        put("ALUMINIUM_ORE", new OreBlockProperties(
-                new BasicOre(registryName(Registries.ALUMINIUM_ORE, "STONE"), 1, COMMON),
-                OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD
-        ));
-        put("AMETHYST_ORE",  new OreBlockProperties(
-                new BasicOre(registryName(Registries.AMETHYST_ORE, "STONE"), 2, RARE),
-                OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                new LootTableProvider(Gems.ITEMS.get("AMETHYST_GEM"))
-        ));
-        put("COPPER_ORE",  new OreBlockProperties(
-                new BasicOre(registryName(Registries.COPPER_ORE, "STONE"), 1, COMMON),
-                OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD
-        ));
-        put("LEAD_ORE",  new OreBlockProperties(
-                new BasicOre(registryName(Registries.LEAD_ORE, "STONE"), 1, UNCOMMON),
-                OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD
-        ));
-        put("OSMIUM_ORE",  new OreBlockProperties(
-                new BasicOre(registryName(Registries.OSMIUM_ORE, "STONE"), 2, UNCOMMON),
-                OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD
-        ));
-        put("RUBY_ORE",  new OreBlockProperties(
-                new BasicOre(registryName(Registries.RUBY_ORE, "STONE"), 2, RARE),
-                OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                new LootTableProvider(Gems.ITEMS.get("RUBY_GEM"))
-        ));
-        put("SAPPHIRE_ORE",  new OreBlockProperties(
-                new BasicOre(registryName(Registries.SAPPHIRE_ORE, "STONE"), 2, RARE),
-                OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                new LootTableProvider(Gems.ITEMS.get("SAPPHIRE_GEM"))
-        ));
-        put("SILVER_ORE",  new OreBlockProperties(
-                new BasicOre(registryName(Registries.SILVER_ORE, "STONE"), 2, UNCOMMON),
-                OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD
-        ));
-        put("TIN_ORE",  new OreBlockProperties(
-                new BasicOre(registryName(Registries.TIN_ORE, "STONE"), 1, COMMON),
-                OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD
-        ));
-        put("URANIUM_ORE",  new OreBlockProperties(
-                new BasicOre(registryName(Registries.URANIUM_ORE, "STONE"), 2, UNCOMMON),
-                OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD
-        ));
-        put("ZINC_ORE",  new OreBlockProperties(
-                new BasicOre(registryName(Registries.ZINC_ORE, "STONE"), 2, UNCOMMON),
-                OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD
-        ));
+        for (Map.Entry<String, HashMap<String, OreBlockProperties>> ORE : Ores.ORE_DEFINITIONS.entrySet()) {
+            String oreKey = ORE.getKey();
+            Map<String, OreBlockProperties> oreProperties = ORE.getValue();
+
+            if (oreProperties.containsKey("STONE")) {
+                OreBlockProperties oreProperty = oreProperties.get("STONE");
+
+                put(oreKey, oreProperty);
+            }
+        }
     }};
 
     /**

@@ -96,7 +96,7 @@ public class FallingOre extends GravelBlock implements IForgeBlock, INetherOre, 
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(hardness, resistance)
                 .harvestLevel(harvestLevel)
-                .harvestTool(ToolType.PICKAXE)
+                .harvestTool(ToolType.SHOVEL)
                 .setRequiresTool()
         );
         setDefaults(registryName, harvestAngers, experienceRarity);
@@ -106,7 +106,7 @@ public class FallingOre extends GravelBlock implements IForgeBlock, INetherOre, 
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(hardness, resistance)
                 .harvestLevel(harvestLevel)
-                .harvestTool(ToolType.PICKAXE)
+                .harvestTool(ToolType.SHOVEL)
                 .setRequiresTool()
         );
         setDefaults(registryName, "NOTHING", experienceRarity);
@@ -116,7 +116,7 @@ public class FallingOre extends GravelBlock implements IForgeBlock, INetherOre, 
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(hardness, resistance)
                 .harvestLevel(harvestLevel)
-                .harvestTool(ToolType.PICKAXE)
+                .harvestTool(ToolType.SHOVEL)
                 .setRequiresTool()
         );
         setDefaults(registryName, "NOTHING", ExperienceRarity.NULL);
@@ -126,7 +126,7 @@ public class FallingOre extends GravelBlock implements IForgeBlock, INetherOre, 
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(3.0f)
                 .harvestLevel(harvestLevel)
-                .harvestTool(ToolType.PICKAXE)
+                .harvestTool(ToolType.SHOVEL)
                 .setRequiresTool()
         );
         setDefaults(registryName, "NOTHING", experienceRarity);
@@ -136,7 +136,7 @@ public class FallingOre extends GravelBlock implements IForgeBlock, INetherOre, 
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(3.0f)
                 .harvestLevel(harvestLevel)
-                .harvestTool(ToolType.PICKAXE)
+                .harvestTool(ToolType.SHOVEL)
                 .setRequiresTool()
         );
         setDefaults(registryName, "NOTHING", ExperienceRarity.NULL);

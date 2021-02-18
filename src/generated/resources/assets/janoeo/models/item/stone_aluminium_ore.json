@@ -1,6 +1,7 @@
 {
   "parent": "janoeo:block/ores/generic_ore",
   "textures": {
-    "block": "minecraft:block/stone"
+    "block": "minecraft:block/stone",
+    "overlay": "janoeo:block/overlays/aluminium"
   }
 }
